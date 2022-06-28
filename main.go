@@ -55,9 +55,9 @@ func Call(next http.Handler) http.Handler {
 			return
 		}
 
-		rw.WriteHeader(w.Code)
 		rw.Header().Set("Content-Encoding", "br")
 		rw.Header().Set("Content-Length", strconv.Itoa(buf.Len()))
+		rw.WriteHeader(w.Code)
 		_, errWriteResp := rw.Write(buf.Bytes())
 		if errWriteResp != nil {
 			log.Printf("[ERROR] error write response, %v", errWriteResp)
